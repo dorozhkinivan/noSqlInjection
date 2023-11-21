@@ -20,10 +20,16 @@ public class UnsecureRepoImpl implements UnsecureRepo {
         if (answer == null)
             return null;
         try {
-            return mapper.readValue(answer.replaceAll("_id: ObjectId\\(\"[a-zA-Z0-9]+\"\\),", "").replaceAll("'", "\"").replaceAll("name", "\"name\"").replaceAll("links", "\"links\""),  new TypeReference<List<ContactDto>>(){});
+            return mapper.readValue(format(answer),  new TypeReference<List<ContactDto>>(){});
         }catch (Exception e){
             return List.of();
         }
 
+    }
+
+
+
+    private String format(String s){
+        return s.replaceAll("_id: ObjectId\\(\"[a-zA-Z0-9]+\"\\),", "").replaceAll("'", "\"").replaceAll("name", "\"name\"").replaceAll("links", "\"links\"";
     }
 }
